@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Home from '@/components/Home'
-import WordList from '@/components/WordList'
+import NodeInfo from '@/components/NodeInfo'
 import Word from '@/components/Word'
 
 Vue.use(Router)
@@ -16,9 +16,9 @@ export default new Router({
       component: Home
     },
     {
-      path: '/words',
+      path: '/nodeinfo',
       name: 'WordList',
-      component: WordList
+      component: NodeInfo
     },
     {
       path: '/words/word/:id',

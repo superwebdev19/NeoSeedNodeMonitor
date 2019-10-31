@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  name: 'WordList',
+  name: 'NodeInfo',
   data () {
     return {
       words: ['test', 'compare', 'exercise', 'judge', 'matters', 'mouse', 'cycle']

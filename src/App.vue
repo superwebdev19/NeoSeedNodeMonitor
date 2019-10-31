@@ -7,20 +7,26 @@
     <!-- </div> -->
     <div>
       <b-navbar toggleable="lg" type="dark" variant="primary">
-        <b-navbar-brand href="/" class="ml-5">NEO Seed Nodes Status Test</b-navbar-brand>
+        <router-link to="/">
+          <b-navbar-brand href="/" class="ml-5">NEO Seed Nodes Status Test</b-navbar-brand>
+        </router-link>
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav class="mx-5">
-            <b-nav-item href="/" class="px-2">Main</b-nav-item>
-            <b-nav-item href="/nodeinfo" class="px-2">Seed Node</b-nav-item>
+            <router-link to="/">
+              <b-nav-item href="/" class="px-2">Main</b-nav-item>
+            </router-link>
+            <router-link to="/nodeinfo">
+              <b-nav-item href="/nodeinfo" class="px-2">Seed Node</b-nav-item>
+            </router-link>
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
     </div>
     <router-view/>
-    <div id="footer-nav" class="nav-bars">
+    <!-- <div id="footer-nav" class="nav-bars">
       Hi, My Dictionary 2018 - {{ wordCount }} words has been added.
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -29,8 +35,8 @@ export default {
   name: 'App',
   data () {
     return {
-      wordCount: 0,
-      latestWord: 'Latest_Word'
+      // wordCount: 0,
+      // latestWord: 'Latest_Word'
     }
   }
 }

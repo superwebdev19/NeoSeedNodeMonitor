@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export default() => {
+export default () => {
   return axios.create({
     baseURL: `http://api.pearson.com/v2/dictionaries`,
     withCredentials: false,

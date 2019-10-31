@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import WordService from '@/services/WordService'
+import NodeService from '@/services/NodeService'
 export default {
   name: 'WordList',
   data () {
@@ -45,7 +45,8 @@ export default {
   },
   methods: {
     async getWordDetails (params) {
-      const response = await WordService.getWordDetails(params)
+      // const response = await WordService.getWordDetails(params)
+      const response = await NodeService.getWordDetails(params)
       let data = response.data.result
       this.partOfSpeech = data.part_of_speech
       this.senses = data.senses
