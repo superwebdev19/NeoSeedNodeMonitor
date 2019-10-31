@@ -19,7 +19,7 @@
     </div>
     <router-view/>
     <div id="footer-nav" class="nav-bars">
-      My Dictionary 2018 - {{ wordCount }} words has been added.
+      Hi, My Dictionary 2018 - {{ wordCount }} words has been added.
     </div>
   </div>
 </template>
