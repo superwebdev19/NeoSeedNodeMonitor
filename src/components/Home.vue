@@ -1,33 +1,11 @@
 <template>
   <div class="home">
     <div class="contanier">
-        <pre>sadfa</pre>
-      <!-- <b-table responsive striped hover bordered :items="dummy" :fields="fields" class="mt-3 col-12"> -->
-      <b-table :items="dummy" :fields="fields" class="mt-3 col-12">
-        <!-- <template slot="id" slot-scope="data">
-          <a> {{ data.index + 2 }} </a>
-        </template>
-        <template slot="NodeName" slot-scope="data">
-          {{data.item.NodeName}}
-        </template>
-        <template slot="ExceptionCount" slot-scope="data">
-          {{data.aanodes.ExceptionCount}}
-        </template> -->
-        <template slot="index" slot-scope="row">
-          <!-- <pre>{{row}}</pre> -->
-          {{ row.index + 2 }}
-        </template>
-        <template slot="NodeName" slot-scope="row">
-          <b-form-input
-            type="text"
-            v-model="row.item.NodeNamex"
-          />
-        </template>
-        <template slot="ExceptionCount" slot-scope="row">
-          <b-form-input
-            type="number"
-            v-model="row.item.ExceptionCount"
-          />
+      <b-table responsive striped hover bordered :items="dummy" :fields="fields" class="mt-3 col-12">
+        <template v-slot:cell(ExceptionCount)="data">
+          <router-link :to="`/${data.value}`">
+            {{ data.value }}
+          </router-link>
         </template>
       </b-table>
     </div>
@@ -55,8 +33,8 @@
 import NodeService from '@/services/NodeService'
 export default {
   name: 'Home',
-  data: {
-    // return {
+  data () {
+    return {
       // word: '',
       // wordData: '',
       // wordMeaning: '',
@@ -64,7 +42,7 @@ export default {
       // wordPronounciation: ''
       fields: [
         {
-          key: 'idx',
+          key: 'id',
           label: 'ID',
           sortable: true
         },
@@ -82,19 +60,19 @@ export default {
         }
       ],
       dummy: [
-        {idx: 1, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 12},
-        {idx: 2, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 36},
-        {idx: 3, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 20},
-        {idx: 4, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 8},
-        {idx: 5, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 14},
-        {idx: 6, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 22},
-        {idx: 7, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 6},
-        {idx: 8, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 15},
-        {idx: 9, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 21},
-        {idx: 10, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 9}
+        {id: 1, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 12},
+        {id: 2, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 36},
+        {id: 3, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 20},
+        {id: 4, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 8},
+        {id: 5, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 14},
+        {id: 6, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 22},
+        {id: 7, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 6},
+        {id: 8, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 15},
+        {id: 9, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 21},
+        {id: 10, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 9}
       ],
       nodes: []
-    // }
+    }
   },
   mounted () {
     this.getNodeInfo()
