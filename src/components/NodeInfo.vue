@@ -49,7 +49,7 @@ export default {
     }
   },
   mounted () {
-    // this.getNodeInfo()
+    this.getNodeInfo()
   },
   methods: {
     async getNodeInfo () {
