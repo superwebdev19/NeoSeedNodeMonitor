@@ -1,6 +1,6 @@
 <template>
   <div class="contanier">
-    <b-table responsive striped hover bordered :items="dummy" :fields="fields" class="mt-3 col-12">
+    <b-table responsive striped hover bordered :items="nodeInfo" :fields="fields" class="mt-3 col-12">
       <template v-slot:cell(ExceptionHeight)="data">
         <a :href="`http://neoscan.io/block/${data.value}`" target="_blank">
           {{ data.value }}
@@ -43,8 +43,6 @@ export default {
           sortable: true
         }
       ],
-      // eslint-disable-next-line
-      dummy: [{"id":11,"NodeName":"http://seed3.ngd.network:10332","ExceptionHeight":4524917,"ExceptionTime":"2019-10-31T11:38:33.379325","Intervals":0},{"id":12,"NodeName":"http://seed3.ngd.network:10332","ExceptionHeight":4524961,"ExceptionTime":"2019-10-31T11:50:36.527318","Intervals":0},{"id":13,"NodeName":"http://seed3.ngd.network:10332","ExceptionHeight":4524972,"ExceptionTime":"2019-10-31T11:53:33.46269","Intervals":0}],
       nodeInfo: []
     }
   },
@@ -54,8 +52,9 @@ export default {
   methods: {
     async getNodeInfo () {
       const response = await NodeService.getNodeInfo(this.nodeID)
+      console.log('nodeinfo=', response)
       let responses = response.status === 200 ? response.data : null
-      this.nodes = responses
+      this.nodeInfo = responses
     }
   },
   computed: {
