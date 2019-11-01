@@ -1,9 +1,9 @@
 <template>
-  <div class="home">
+  <div>
     <div class="contanier">
       <b-table responsive striped hover bordered :items="dummy" :fields="fields" class="mt-3 col-12">
         <template v-slot:cell(ExceptionCount)="data">
-          <router-link :to="`/${data.value}`">
+          <router-link :to="`/nodeinfo/${data.value}`">
             {{ data.value }}
           </router-link>
         </template>
@@ -75,10 +75,10 @@ export default {
     }
   },
   mounted () {
-    this.getNodeInfo()
+    this.getNodes()
   },
   methods: {
-    async getNodeInfo () {
+    async getNodes () {
       // if (this.word === '') {
       //   return false
       // }
@@ -86,7 +86,7 @@ export default {
       //   word: this.word
       // })
 
-      const response = await NodeService.getNodeInfo()
+      const response = await NodeService.getNodes()
 
       let responses = response.status === 200 ? response.data : null
 

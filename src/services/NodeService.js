@@ -1,5 +1,4 @@
 // import Api from '@/services/Api'
-/* eslint-disable */
 import axios from 'axios'
 
 export default {
@@ -13,7 +12,11 @@ export default {
   //   // return Api().get('/entries/' + params)
   //   return Api().get('/entries/compare')
   // },
-  getNodeInfo () {
+  getNodes () {
+    return axios.get('https://jsonplaceholder.typicode.com/users')
+  },
+
+  getNodeInfo (nodeID) {
     return axios.get('https://jsonplaceholder.typicode.com/users')
   }
 }
