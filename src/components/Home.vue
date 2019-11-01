@@ -44,12 +44,10 @@ export default {
   methods: {
     async getNodes () {
       const response = await NodeService.getNodes()
-      console.log('main=', response)
       let responses = response.status === 200 ? response.data : null
       this.nodes = responses
     },
     setNodeID (param) {
-      console.log('param', param)
       this.$store.dispatch('setNodeIDAction', param)
     }
   },

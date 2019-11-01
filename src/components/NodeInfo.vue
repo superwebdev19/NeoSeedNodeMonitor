@@ -52,7 +52,6 @@ export default {
   methods: {
     async getNodeInfo () {
       const response = await NodeService.getNodeInfo(this.nodeID)
-      console.log('nodeinfo=', response)
       let responses = response.status === 200 ? response.data : null
       this.nodeInfo = responses
     }
