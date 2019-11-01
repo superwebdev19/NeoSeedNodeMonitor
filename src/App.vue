@@ -34,7 +34,7 @@ export default {
 
 <style lang="scss">
 body {
-  overflow: hidden;
+  overflow: auto;
   a {
     color: royalblue;
   }
@@ -52,7 +52,7 @@ body {
   }
 
   .nav-link:hover {
-    color: orange !important;
+    color: rgb(41, 245, 119) !important;
   }
 }
 </style>

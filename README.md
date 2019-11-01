@@ -1,5 +1,4 @@
-# vuex-axios-tutorial
-
+# Neo Seed Node Status Monitor
 > A Vue.js project
 
 ## Build Setup

@@ -1,11 +1,10 @@
 <template>
   <div class="contanier">
-    {{nodeID}}
     <b-table responsive striped hover bordered :items="dummy" :fields="fields" class="mt-3 col-12">
-      <template v-slot:cell(Height)="data">
-        <router-link :to="`/nodeinfo/${data.value}`">
+      <template v-slot:cell(ExceptionHeight)="data">
+        <a :href="`http://neoscan.io/block/${data.value}`" target="_blank">
           {{ data.value }}
-        </router-link>
+        </a>
       </template>
     </b-table>
   </div>
@@ -25,46 +24,32 @@ export default {
         },
         {
           key: 'NodeName',
-          // key: 'name',
           label: 'Nodes',
           sortable: true
         },
         {
-          key: 'Height',
-          // key: 'name',
+          key: 'ExceptionHeight',
           label: 'Height',
           sortable: true
         },
         {
-          key: 'ExceptionCount',
-          // key: 'phone',
+          key: 'ExceptionTime',
           label: 'Generate Time(GMT +8)',
           sortable: true
         },
         {
           key: 'Intervals',
-          // key: 'phone',
           label: 'Interval(s)',
           sortable: true
         }
       ],
-      dummy: [
-        {id: 1, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 12, Intervals: 0},
-        {id: 2, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 36, Intervals: 0},
-        {id: 3, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 20, Intervals: 0},
-        {id: 4, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 8, Intervals: 0},
-        {id: 5, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 14, Intervals: 0},
-        {id: 6, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 22, Intervals: 0},
-        {id: 7, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 6, Intervals: 0},
-        {id: 8, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 15, Intervals: 0},
-        {id: 9, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 21, Intervals: 0},
-        {id: 10, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 9, Intervals: 0}
-      ],
+      // eslint-disable-next-line
+      dummy: [{"id":11,"NodeName":"http://seed3.ngd.network:10332","ExceptionHeight":4524917,"ExceptionTime":"2019-10-31T11:38:33.379325","Intervals":0},{"id":12,"NodeName":"http://seed3.ngd.network:10332","ExceptionHeight":4524961,"ExceptionTime":"2019-10-31T11:50:36.527318","Intervals":0},{"id":13,"NodeName":"http://seed3.ngd.network:10332","ExceptionHeight":4524972,"ExceptionTime":"2019-10-31T11:53:33.46269","Intervals":0}],
       nodeInfo: []
     }
   },
   mounted () {
-    this.getNodeInfo()
+    // this.getNodeInfo()
   },
   methods: {
     async getNodeInfo () {
