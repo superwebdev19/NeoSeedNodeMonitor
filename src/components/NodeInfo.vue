@@ -1,5 +1,6 @@
 <template>
   <div class="contanier">
+    {{nodeID}}
     <b-table responsive striped hover bordered :items="dummy" :fields="fields" class="mt-3 col-12">
       <template v-slot:cell(Height)="data">
         <router-link :to="`/nodeinfo/${data.value}`">
@@ -16,10 +17,6 @@ export default {
   name: 'NodeInfo',
   data () {
     return {
-      // word: this.$route.params.id,
-      // wordId: this.$route.params.data.id,
-      // partOfSpeech: '',
-      // senses: ''
       fields: [
         {
           key: 'id',
@@ -51,7 +48,6 @@ export default {
           sortable: true
         }
       ],
-      nodeID: this.$route.params.id,
       dummy: [
         {id: 1, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 12, Intervals: 0},
         {id: 2, NodeName: 'http://seed1.ngd.network:10332', Height: 4517276, ExceptionCount: 36, Intervals: 0},
@@ -68,19 +64,18 @@ export default {
     }
   },
   mounted () {
-    this.getNodeInfo(this.nodeID)
+    this.getNodeInfo()
   },
   methods: {
-    async getNodeInfo (nodeID) {
-      // const response = await WordService.getWordDetails(params)
-      const response = await NodeService.getNodeInfo(nodeID)
+    async getNodeInfo () {
+      const response = await NodeService.getNodeInfo(this.nodeID)
       let responses = response.status === 200 ? response.data : null
-      console.log('nodeInfo = ', responses)
       this.nodes = responses
-
-      // let data = response.data.result
-      // this.partOfSpeech = data.part_of_speech
-      // this.senses = data.senses
+    }
+  },
+  computed: {
+    nodeID () {
+      return this.$store.getters.getNodeID
     }
   }
 }
@@ -88,93 +83,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-// .wordlist-container {
-//   margin-top: 60px;
-
-//   .wordlist-columns {
-//     width: 100%;
-//     display: flex;
-//     margin: 0 auto;
-//     text-align: left;
-//     align-items: center;
-
-//     ul {
-//       list-style: none;
-//       padding: 0;
-//       margin: 0;
-//     }
-
-//     h2 {
-//       flex: 0 0 25%;
-//       margin-top: 10px;
-//       text-align: center;
-//       align-self: flex-start;
-//     }
-
-//     .word-info {
-//       overflow: auto;
-//       flex: 0 0 75%;
-
-//       .words {
-//         height: calc(100vh - 200px);
-//         overflow: auto;
-//       }
-
-//       h4{
-//         margin-bottom: 10px;
-//       }
-//     }
-
-//     .examples {
-//       list-style: circle;
-//       margin: 0 0 30px 30px;
-
-//       li {
-//         line-height: 30px;
-//       }
-//     }
-//   }
-
-//   .nav-links {
-//     display: flex;
-//     width: 100%;
-//     position: fixed;
-//     bottom: 62px;
-//     left: 0;
-//     justify-content: center;
-
-//     a {
-//         padding: 20px 50px;
-//         text-align: center;
-//         background-color: royalblue;
-//         -webkit-box-flex: 0;
-//         flex: 0 0 47%;
-//         margin: 0 20px;
-//         box-sizing: border-box;
-//         display: block;
-//         text-decoration: none;
-//         color: white;
-//     }
-//   }
-//   blockquote {
-//     background: #f9f9f9;
-//     border-left: 10px solid #ccc;
-//     margin: 1.5em 10px;
-//     padding: 0.5em 10px;
-//     quotes: "\201C""\201D""\2018""\2019";
-//     width: fit-content;
-//   }
-
-//   blockquote:before {
-//     color: #ccc;
-//     content: open-quote;
-//     font-size: 4em;
-//     line-height: 0.1em;
-//     margin-right: 0.25em;
-//     vertical-align: -0.4em;
-//   }
-//   blockquote p {
-//     display: inline;
-//   }
-// }
 </style>

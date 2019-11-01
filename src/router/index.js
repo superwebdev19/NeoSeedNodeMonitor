@@ -16,13 +16,12 @@ export default new Router({
       component: Home
     },
     {
-      path: '/nodeinfo',
+      path: '/wordlist',
       name: 'WordList',
       component: WordList
     },
     {
-      // path: '/words/word/:id',
-      path: '/nodeinfo/:id',
+      path: '/nodeinfo',
       name: 'NodeInfo',
       component: NodeInfo
     }
