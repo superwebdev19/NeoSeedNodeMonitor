@@ -6,6 +6,7 @@ import Vuex from 'vuex'
 import { store } from './store'
 import router from './router'
 import BootstrapVue from 'bootstrap-vue'
+import '@/plugins/echarts'
 
 Vue.config.productionTip = false
 

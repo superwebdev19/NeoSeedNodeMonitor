@@ -6,6 +6,11 @@
           {{ data.value }}
         </a>
       </template>
+      <template v-slot:cell(ExceptionTime)="data">
+        <router-link to="/statistics">
+          <span>{{ data.value }}</span>
+        </router-link>
+      </template>
     </b-table>
   </div>
 </template>
@@ -54,6 +59,20 @@ export default {
       const response = await NodeService.getNodeInfo(this.nodeID)
       let responses = response.status === 200 ? response.data : null
       this.nodeInfo = responses
+
+      // setStatisticsData
+      let exceptionTimes = []
+      let intervals = []
+      responses.filter((item) => {
+        exceptionTimes.push(item.ExceptionTime)
+        intervals.push(item.Intervals)
+      })
+
+      this.setStatisticsData(exceptionTimes, intervals)
+    },
+    setStatisticsData (xAxis, yAxis) {
+      this.$store.dispatch('setStatisticsX', xAxis)
+      this.$store.dispatch('setStatisticsY', yAxis)
     }
   },
   computed: {

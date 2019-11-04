@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Home from '@/components/Home'
 import NodeInfo from '@/components/NodeInfo'
+import Statistics from '@/components/Statistics'
 
 Vue.use(Router)
 
@@ -18,6 +19,11 @@ export default new Router({
       path: '/nodeinfo',
       name: 'NodeInfo',
       component: NodeInfo
+    },
+    {
+      path: '/statistics',
+      name: 'Statistics',
+      component: Statistics
     }
   ]
 })
