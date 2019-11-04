@@ -1,6 +1,6 @@
 <template>
   <div class="chart-wrapper container col-12">
-    <chart :options="chartOptionsBar"></chart>
+    <chart :options="chartOptionsBar" :autoresize=true></chart>
   </div>
 </template>
 
@@ -14,7 +14,7 @@ export default {
         xAxis: {
           axisLabel: {
             formatter: function (value) {
-              return moment(value).format('M/D/Y hh:mm')
+              return moment(value).format('M/D/Y')
             }
           },
           data: []
