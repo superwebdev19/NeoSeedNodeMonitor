@@ -1,22 +1,20 @@
 <template>
-  <div class="chart-wrapper">
+  <div class="chart-wrapper container col-12">
     <chart :options="chartOptionsBar"></chart>
   </div>
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   name: 'Statistics',
   data () {
     return {
       chartOptionsBar: {
         xAxis: {
-          type: 'time',
-          boundaryGap: false,
           axisLabel: {
             formatter: function (value) {
-              // eslint-disable-next-line
-              return moment(value).format('HH:mm')
+              return moment(value).format('M/D/Y hh:mm')
             }
           },
           data: []
@@ -44,10 +42,11 @@ export default {
   },
   computed: {
     statisticsX () {
-      return moment(this.$store.getters.getStatisticsX).format('HH:mm')
+      console.log('X = ', this.$store.getters.getStatisticsX)
+      return this.$store.getters.getStatisticsX
     },
     statisticsY () {
-      console.log(this.$store.getters.getStatisticsY)
+      console.log('Y = ', this.$store.getters.getStatisticsY)
       return this.$store.getters.getStatisticsY
     }
   }
