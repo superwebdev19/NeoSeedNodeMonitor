@@ -15,7 +15,8 @@ export default {
           axisLabel: {
             formatter: function (value) {
               return moment(value).format('M/D/Y')
-            }
+            },
+            rotate: 60
           },
           data: []
         },
@@ -24,8 +25,18 @@ export default {
         },
         series: [
           {
+            name: 'Overall Progress',
             type: 'bar',
-            data: []
+            data: [],
+            label: {
+              normal: {
+                show: true,
+                position: 'top',
+                color: '#333333',
+                fontSize: '14',
+                distance: 5
+              }
+            }
           }
         ]
       }
@@ -42,11 +53,9 @@ export default {
   },
   computed: {
     statisticsX () {
-      console.log('X = ', this.$store.getters.getStatisticsX)
       return this.$store.getters.getStatisticsX
     },
     statisticsY () {
-      console.log('Y = ', this.$store.getters.getStatisticsY)
       return this.$store.getters.getStatisticsY
     }
   }
