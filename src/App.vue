@@ -3,7 +3,7 @@
     <div>
       <b-navbar toggleable="lg" type="dark" variant="primary">
         <router-link to="/">
-          <b-navbar-brand href="/" class="ml-5">NEO Seed Nodes Status Test</b-navbar-brand>
+          <b-navbar-brand href="/" class="ml-5">NEO Seed Nodes Status Monitor</b-navbar-brand>
         </router-link>
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
         <b-collapse id="nav-collapse" is-nav>
