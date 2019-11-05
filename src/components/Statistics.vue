@@ -25,7 +25,6 @@ export default {
         },
         series: [
           {
-            name: 'Overall Progress',
             type: 'bar',
             data: [],
             label: {
