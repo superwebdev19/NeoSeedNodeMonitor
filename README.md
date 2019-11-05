@@ -1,5 +1,5 @@
 # Neo Seed Node Status Monitor
-> A Vue.js project
+> A Vue.js + eCharts project
 
 ## Build Setup
 
