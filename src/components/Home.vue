@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="contanier mt-3 col-12">
-      <input type="text" v-model="filter" placeholder="Filter" icon="search" class="mb-3 col-3 float-right form-control" />
-      <b-table responsive striped hover bordered :items="nodes" :fields="fields" :filter-function="filterTable" class="node-table">
+      <input type="text" v-model="filter" placeholder="Filter by Name" icon="search" class="mb-3 col-3 float-right form-control" />
+      <b-table responsive striped hover bordered :items="nodes" :fields="fields" :filter="filter" :filter-function="filterTable" class="node-table">
         <template v-slot:cell(ExceptionCount)="data">
           <router-link to="/nodeinfo">
             <span v-on:click="setNodeID(data.item.id)">{{ data.value }}</span>
@@ -52,8 +52,8 @@ export default {
     setNodeID (param) {
       this.$store.dispatch('setNodeIDAction', param)
     },
-    filterTable (row) {
-      return row.Nodename === this.filter ? true :  false
+    filterTable (row, filter) {
+      return row.NodeName.toLowerCase().includes(filter.toLowerCase()) ? true :  false
     }
   },
   computed: {
