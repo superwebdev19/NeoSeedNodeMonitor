@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="contanier mt-3 col-12">
-      <div class="form-group has-search mb-3 col-3 float-right">
+      <div class="form-group has-search mb-2 col-3 float-right">
         <span class="fa fa-search form-control-feedback"></span>
         <input type="text" v-model="filter" placeholder="Filter by Name" icon="search" class="form-control" />
       </div>
