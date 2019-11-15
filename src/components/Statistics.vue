@@ -23,6 +23,9 @@ export default {
         yAxis: {
           type: 'value'
         },
+        grid: {
+          bottom: 75
+        },
         series: [
           {
             type: 'bar',
