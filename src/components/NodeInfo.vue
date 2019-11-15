@@ -1,6 +1,10 @@
 <template>
-  <div class="contanier">
-    <b-table responsive striped hover bordered :items="nodeInfo" :fields="fields" class="mt-3 col-12">
+  <div class="contanier mt-3 col-12">
+    <div class="form-group has-search mb-3 col-3 float-right">
+      <span class="fa fa-search form-control-feedback"></span>
+      <input type="text" v-model="filter" placeholder="Filter by Nodes or Height" icon="search" class="form-control" />
+    </div>
+    <b-table responsive striped hover bordered :items="nodeInfo" :fields="fields" :filter="filter" :filter-function="filterTable">
       <template v-slot:cell(ExceptionHeight)="data">
         <a :href="`http://neoscan.io/block/${data.value}`" target="_blank">
           {{ data.value }}
@@ -48,7 +52,8 @@ export default {
           sortable: true
         }
       ],
-      nodeInfo: []
+      nodeInfo: [],
+      filter: null
     }
   },
   mounted () {
@@ -73,6 +78,9 @@ export default {
     setStatisticsData (xAxis, yAxis) {
       this.$store.dispatch('setStatisticsX', xAxis)
       this.$store.dispatch('setStatisticsY', yAxis)
+    },
+    filterTable (row, filter) {
+      return (row.NodeName.toLowerCase().includes(filter.toLowerCase()) || row.ExceptionHeight.toString().toLowerCase().includes(filter.toLowerCase())) ? true : false
     }
   },
   computed: {
@@ -85,4 +93,19 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #777;
+}
 </style>
