@@ -53,10 +53,6 @@ export default {
       this.$store.dispatch('setNodeIDAction', param)
     },
     filterTable (row) {
-      // // eslint-disable-next-line no-console
-      // console.log(row.NodeName)
-      // // eslint-disable-next-line no-console
-      // console.log(this.filter)
       return row.Nodename === this.filter ? true :  false
     }
   },
