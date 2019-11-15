@@ -1,7 +1,8 @@
 <template>
   <div>
-    <div class="contanier">
-      <b-table responsive striped hover bordered :items="nodes" :fields="fields" class="mt-3 col-12 node-table">
+    <div class="contanier mt-3 col-12">
+      <input type="text" v-model="filter" placeholder="Filter" icon="search" class="mb-3 col-3 float-right form-control" />
+      <b-table responsive striped hover bordered :items="nodes" :fields="fields" :filter-function="filterTable" class="node-table">
         <template v-slot:cell(ExceptionCount)="data">
           <router-link to="/nodeinfo">
             <span v-on:click="setNodeID(data.item.id)">{{ data.value }}</span>
@@ -35,7 +36,8 @@ export default {
           sortable: true
         }
       ],
-      nodes: []
+      nodes: [],
+      filter: null
     }
   },
   mounted () {
@@ -49,6 +51,13 @@ export default {
     },
     setNodeID (param) {
       this.$store.dispatch('setNodeIDAction', param)
+    },
+    filterTable (row) {
+      // eslint-disable-next-line no-console
+      console.log(row.NodeName)
+      // eslint-disable-next-line no-console
+      console.log(this.filter)
+      return row.Nodename === this.filter ? true :  false
     }
   },
   computed: {
