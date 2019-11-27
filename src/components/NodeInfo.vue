@@ -7,7 +7,7 @@
     <a :href="`http://neoscan.io/block/${data.value}`" target="_blank">
       {{ data.value }}
     </a>
-    <b-table responsive striped hover bordered :items="nodeInfo" :fields="fields" :filter="filter" :filter-function="filterTable">
+    <b-table responsive striped hover bordered :items="nodeInfo" :fields="fields" :filter="filterField" :filter-function="filterTable">
       <template v-slot:cell(ExceptionHeight)="data">
       </template>
       <template v-slot:cell(ExceptionTime)="data">
@@ -53,15 +53,15 @@ export default {
         }
       ],
       nodeInfo: [],
-      filter: null
+      filterField: null
     }
   },
   mounted () {
     this.getNodeInfo()
   },
   methods: {
-    async getNodeInfo () {
-      const response = await NodeService.getNodeInfo(this.nodeID)
+    getNodeInfo () {
+      const response = NodeService.getNodeInfo(this.nodeID)
       let responses = response.status === 200 ? response.data : null
       this.nodeInfo = responses
 
