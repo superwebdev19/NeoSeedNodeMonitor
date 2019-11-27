@@ -2,13 +2,13 @@
   <div class="contanier mt-3 col-12">
     <div class="form-group has-search mb-2 col-3 float-right">
       <span class="fa fa-search form-control-feedback"></span>
-      <input type="text" v-model="filter" placeholder="Filter by Nodes or Height" icon="search" class="form-control" />
+      <input type="text" v-model="filterFileld" placeholder="Filter by Nodes or Height" icon="search" class="form-control" />
     </div>
+    <a :href="`http://neoscan.io/block/${data.value}`" target="_blank">
+      {{ data.value }}
+    </a>
     <b-table responsive striped hover bordered :items="nodeInfo" :fields="fields" :filter="filter" :filter-function="filterTable">
       <template v-slot:cell(ExceptionHeight)="data">
-        <a :href="`http://neoscan.io/block/${data.value}`" target="_blank">
-          {{ data.value }}
-        </a>
       </template>
       <template v-slot:cell(ExceptionTime)="data">
         <router-link to="/statistics">
