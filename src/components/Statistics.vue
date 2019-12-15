@@ -11,6 +11,7 @@ export default {
   data() {
     return {
       chartOptionsBar: {
+        color: "#17a2b8",
         xAxis: {
           axisLabel: {
             formatter: function(value) {
@@ -18,10 +19,20 @@ export default {
             },
             rotate: 60
           },
+          name: "Time(s)",
+          nameTextStyle: {
+            color: "#ff0000",
+            fontWeight: "bold"
+          },
           data: []
         },
         yAxis: {
-          type: "value"
+          type: "value",
+          name: "Interval(s)",
+          nameTextStyle: {
+            color: "#ff0000",
+            fontWeight: "bold"
+          }
         },
         grid: {
           bottom: 75
@@ -34,7 +45,7 @@ export default {
               normal: {
                 show: true,
                 position: "top",
-                color: "#333333",
+                color: "#ff0000",
                 fontSize: "14",
                 distance: 5
               }
