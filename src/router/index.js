@@ -1,30 +1,36 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Home from '@/components/Home'
-import NodeInfo from '@/components/NodeInfo'
-import Statistics from '@/components/Statistics'
+import Vue from "vue";
+import Router from "vue-router";
+import Main from "@/components/Main";
+import Nodes from "@/components/Nodes";
+import NodeInfo from "@/components/NodeInfo";
+import Statistics from "@/components/Statistics";
 
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap-vue/dist/bootstrap-vue.min.css'
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-vue/dist/bootstrap-vue.min.css";
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'Home',
-      component: Home
+      path: "/",
+      name: "Main",
+      component: Main
     },
     {
-      path: '/nodeinfo',
-      name: 'NodeInfo',
+      path: "/nodes",
+      name: "Nodes",
+      component: Nodes
+    },
+    {
+      path: "/nodeinfo",
+      name: "NodeInfo",
       component: NodeInfo
     },
     {
-      path: '/statistics',
-      name: 'Statistics',
+      path: "/statistics",
+      name: "Statistics",
       component: Statistics
     }
   ]
-})
+});
