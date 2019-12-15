@@ -40,16 +40,6 @@ export default {
       if (flagNet === "MainNet") {
         this.neoMapLocations = this.neoMainNetNodeLocations;
       } else if (flagNet == "TestNet") {
-        this.neoTestNetNodeLocations = [
-          {
-            id: "london",
-            svgPath: targetSVG,
-            title: "London",
-            latitude: 51.5002,
-            longitude: -0.1262,
-            scale: 1
-          }
-        ];
         this.neoMapLocations = this.neoTestNetNodeLocations;
       }
     },
