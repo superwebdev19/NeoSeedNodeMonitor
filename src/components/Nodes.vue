@@ -22,7 +22,7 @@
         :filter-function="filterTable"
         class="node-table"
       >
-        <template v-slot:cell(ExceptionCount)="data">
+        <template v-slot:cell(exceptionCount)="data">
           <router-link to="/nodeinfo">
             <span v-on:click="setNodeID(data.item.id)">{{ data.value }}</span>
           </router-link>
@@ -33,7 +33,6 @@
 </template>
 
 <script>
-import NodeService from "@/services/NodeService";
 export default {
   name: "Nodes",
   data() {
@@ -45,13 +44,38 @@ export default {
           sortable: true
         },
         {
-          key: "NodeName",
+          key: "url",
           label: "Name",
           sortable: true
         },
         {
-          key: "ExceptionCount",
-          label: "Count",
+          key: "height",
+          label: "Current Height",
+          sortable: true
+        },
+        {
+          key: "version",
+          label: "Version",
+          sortable: true
+        },
+        {
+          key: "latency",
+          label: "Latency",
+          sortable: true
+        },
+        {
+          key: "peers",
+          label: "Peers",
+          sortable: true
+        },
+        {
+          key: "memPool",
+          label: "Mempool",
+          sortable: true
+        },
+        {
+          key: "exceptionCount",
+          label: "Exceptions",
           sortable: true
         }
       ],
@@ -60,13 +84,12 @@ export default {
     };
   },
   mounted() {
+    this.nodes = this.$store.getters.getNeoNodes;
     this.getNodes();
   },
   methods: {
-    async getNodes() {
-      const response = await NodeService.getNodes();
-      let responses = response.status === 200 ? response.data : null;
-      this.nodes = responses;
+    getNodes() {
+      this.nodes = this.$store.getters.getNeoNodes;
     },
     setNodeID(param) {
       this.$store.dispatch("setNodeIDAction", param);
@@ -80,6 +103,14 @@ export default {
   computed: {
     nodeID() {
       return this.$store.getters.getNodeID;
+    },
+    refreshNodes() {
+      return this.$store.getters.getNeoNodes;
+    }
+  },
+  watch: {
+    refreshNodes: function() {
+      this.getNodes();
     }
   }
 };

@@ -1,67 +1,67 @@
 <template>
   <div class="chart-wrapper container col-12">
-    <chart :options="chartOptionsBar" :autoresize=true></chart>
+    <chart :options="chartOptionsBar" :autoresize="true"></chart>
   </div>
 </template>
 
 <script>
-import moment from 'moment'
+import moment from "moment";
 export default {
-  name: 'Statistics',
-  data () {
+  name: "Statistics",
+  data() {
     return {
       chartOptionsBar: {
         xAxis: {
           axisLabel: {
-            formatter: function (value) {
-              return moment(value).format('M/D/Y')
+            formatter: function(value) {
+              return moment(value).format("M/D/Y");
             },
             rotate: 60
           },
           data: []
         },
         yAxis: {
-          type: 'value'
+          type: "value"
         },
         grid: {
           bottom: 75
         },
         series: [
           {
-            type: 'bar',
+            type: "bar",
             data: [],
             label: {
               normal: {
                 show: true,
-                position: 'top',
-                color: '#333333',
-                fontSize: '14',
+                position: "top",
+                color: "#333333",
+                fontSize: "14",
                 distance: 5
               }
             }
           }
         ]
       }
-    }
+    };
   },
-  mounted () {
-    this.getStatisticsXY()
+  mounted() {
+    this.getStatisticsXY();
   },
   methods: {
-    getStatisticsXY () {
-      this.chartOptionsBar.xAxis.data = this.statisticsX
-      this.chartOptionsBar.series[0].data = this.statisticsY
+    getStatisticsXY() {
+      this.chartOptionsBar.xAxis.data = this.statisticsX;
+      this.chartOptionsBar.series[0].data = this.statisticsY;
     }
   },
   computed: {
-    statisticsX () {
-      return this.$store.getters.getStatisticsX
+    statisticsX() {
+      return this.$store.getters.getStatisticsX;
     },
-    statisticsY () {
-      return this.$store.getters.getStatisticsY
+    statisticsY() {
+      return this.$store.getters.getStatisticsY;
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

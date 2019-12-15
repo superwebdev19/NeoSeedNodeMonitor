@@ -1,48 +1,58 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
     nodeID: 0,
     statisticsX: [],
-    statisticsY: []
+    statisticsY: [],
+    neoNodes: []
   },
 
   mutations: {
-    setNodeID (state, payload) {
-      state.nodeID = payload
+    setNodeID(state, payload) {
+      state.nodeID = payload;
     },
-    setStatisticsX (state, payload) {
-      state.statisticsX = payload
+    setStatisticsX(state, payload) {
+      state.statisticsX = payload;
     },
-    setStatisticsY (state, payload) {
-      state.statisticsY = payload
+    setStatisticsY(state, payload) {
+      state.statisticsY = payload;
+    },
+    setNeoNodes(state, payload) {
+      state.neoNodes = payload;
     }
   },
 
   actions: {
-    setNodeIDAction ({commit}, payload) {
-      commit('setNodeID', payload)
+    setNodeIDAction({ commit }, payload) {
+      commit("setNodeID", payload);
     },
-    setStatisticsX ({commit}, payload) {
-      commit('setStatisticsX', payload)
+    setStatisticsX({ commit }, payload) {
+      commit("setStatisticsX", payload);
     },
-    setStatisticsY ({commit}, payload) {
-      commit('setStatisticsY', payload)
+    setStatisticsY({ commit }, payload) {
+      commit("setStatisticsY", payload);
+    },
+    setNeoNodesAction({ commit }, payload) {
+      commit("setNeoNodes", payload);
     }
   },
 
   getters: {
-    getNodeID (state) {
-      return state.nodeID
+    getNodeID(state) {
+      return state.nodeID;
     },
-    getStatisticsX (state) {
-      return state.statisticsX
+    getStatisticsX(state) {
+      return state.statisticsX;
     },
-    getStatisticsY (state) {
-      return state.statisticsY
+    getStatisticsY(state) {
+      return state.statisticsY;
+    },
+    getNeoNodes(state) {
+      return state.neoNodes;
     }
   }
-})
+});

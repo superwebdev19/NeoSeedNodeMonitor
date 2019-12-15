@@ -26,10 +26,28 @@
 </template>
 
 <script>
+import * as signalR from "@aspnet/signalr";
+var connection = null;
 export default {
   name: "App",
   data() {
     return {};
+  },
+  created: function() {
+    // Connect to the hub
+    connection = new signalR.HubConnectionBuilder()
+      .withUrl("http://47.97.73.20/hubs/node")
+      .build();
+
+    connection.start().catch(function() {
+      setTimeout(function() {
+        connection.start();
+      }, 5000);
+    });
+
+    connection.on("Receive", data => {
+      this.$store.dispatch("setNeoNodesAction", data);
+    });
   }
 };
 </script>
