@@ -3,35 +3,59 @@
     <div>
       <b-navbar toggleable="lg" type="dark" variant="primary">
         <router-link to="/">
-          <b-navbar-brand href="/" class="ml-5">NEO Seed Nodes Status Monitor</b-navbar-brand>
+          <b-navbar-brand href="/" class="mx-5 px-5">NEO Nodes</b-navbar-brand>
         </router-link>
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav class="mx-5">
             <router-link to="/">
-              <b-nav-item href="/nodes" class="px-2">Main</b-nav-item>
+              <b-nav-item href="/" class="px-2">Main</b-nav-item>
             </router-link>
             <router-link to="/nodes">
               <b-nav-item href="/nodes" class="px-2">Nodes</b-nav-item>
             </router-link>
-            <router-link to="/nodeinfo">
-              <b-nav-item href="/nodeinfo" class="px-2">Node Info</b-nav-item>
-            </router-link>
+          </b-navbar-nav>
+
+          <!-- Right aligned nav items -->
+          <b-navbar-nav class="ml-auto" v-if="showMenu">
+            <b-nav-item-dropdown :text="netFlag" right class="pr-5">
+              <b-dropdown-item @click="onSetFlagNet('MainNet')">MainNet</b-dropdown-item>
+              <b-dropdown-item @click="onSetFlagNet('TestNet')">TestNet</b-dropdown-item>
+            </b-nav-item-dropdown>
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
     </div>
+
     <router-view />
   </div>
 </template>
 
+<script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/maps.js"></script>
+<script src="https://www.amcharts.com/lib/4/geodata/worldLow.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
 <script>
 import * as signalR from "@aspnet/signalr";
 var connection = null;
 export default {
   name: "App",
   data() {
-    return {};
+    return {
+      netFlag: "MainNet",
+      showMenu: true
+    };
+  },
+  watch: {
+    $route(current, old) {
+      this.showMenu =
+        current.name === "Main" || current.name === "Nodes" ? true : false;
+
+      if (old.name === "Main") {
+        // Clear
+        am4core.disposeAllCharts();
+      }
+    }
   },
   created: function() {
     // Connect to the hub
@@ -47,7 +71,30 @@ export default {
 
     connection.on("Receive", data => {
       this.$store.dispatch("setNeoNodesAction", data);
+
+      //set initial Net as a MainNet - MainNet/TestNet
+      if (this.$store.getters.getNeoSelectedNetNodes.length === 0) {
+        this.onSetFlagNet("MainNet");
+      }
     });
+  },
+  methods: {
+    onSetFlagNet(flag) {
+      if (
+        this.netFlag !== flag ||
+        this.$store.getters.getNeoSelectedNetNodes.length === 0
+      ) {
+        this.netFlag = flag;
+
+        let data = this.$store.getters.getNeoNodes;
+        this.$store.dispatch(
+          "setNeoSelectedNetNodesAction",
+          data.filter(item => {
+            if (item.net === this.netFlag) return item;
+          })
+        );
+      }
+    }
   }
 };
 </script>

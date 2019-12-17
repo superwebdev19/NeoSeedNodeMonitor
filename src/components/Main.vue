@@ -33,7 +33,7 @@ export default {
     };
   },
   mounted() {
-    this.neoMapLocations = this.$store.getters.getNeoNodes;
+    this.neoMapLocations = this.$store.getters.getNeoSelectedNetNodes;
   },
   methods: {
     onChooseNet(flagNet) {
@@ -44,6 +44,9 @@ export default {
       }
     },
     showMap(data) {
+      // Clear
+      am4core.disposeAllCharts();
+
       // Themes begin
       am4core.useTheme(am4themes_animated);
       // Themes end
@@ -118,7 +121,7 @@ export default {
       lineTemplate.line.strokeOpacity = 0.4;
     },
     suckData() {
-      let data = this.$store.getters.getNeoNodes;
+      let data = this.$store.getters.getNeoSelectedNetNodes;
       if (data.length === 0) return;
 
       let neoAllNodeLocations = [];
@@ -158,7 +161,7 @@ export default {
   },
   computed: {
     refreshNodes() {
-      return this.$store.getters.getNeoNodes;
+      return this.$store.getters.getNeoSelectedNetNodes;
     },
     refreshData() {
       return this.neoMapLocations;

@@ -8,7 +8,8 @@ export const store = new Vuex.Store({
     nodeID: 0,
     statisticsX: [],
     statisticsY: [],
-    neoNodes: []
+    neoNodes: [],
+    neoSelectedNetNodes: []
   },
 
   mutations: {
@@ -23,6 +24,9 @@ export const store = new Vuex.Store({
     },
     setNeoNodes(state, payload) {
       state.neoNodes = payload;
+    },
+    setNeoSelectedNetNodes(state, payload) {
+      state.neoSelectedNetNodes = payload;
     }
   },
 
@@ -38,6 +42,9 @@ export const store = new Vuex.Store({
     },
     setNeoNodesAction({ commit }, payload) {
       commit("setNeoNodes", payload);
+    },
+    setNeoSelectedNetNodesAction({ commit }, payload) {
+      commit("setNeoSelectedNetNodes", payload);
     }
   },
 
@@ -53,6 +60,9 @@ export const store = new Vuex.Store({
     },
     getNeoNodes(state) {
       return state.neoNodes;
+    },
+    getNeoSelectedNetNodes(state) {
+      return state.neoSelectedNetNodes;
     }
   }
 });

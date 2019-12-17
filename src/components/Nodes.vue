@@ -84,12 +84,12 @@ export default {
     };
   },
   mounted() {
-    this.nodes = this.$store.getters.getNeoNodes;
+    this.nodes = this.$store.getters.getNeoSelectedNetNodes;
     this.getNodes();
   },
   methods: {
     getNodes() {
-      this.nodes = this.$store.getters.getNeoNodes;
+      this.nodes = this.$store.getters.getNeoSelectedNetNodes;
     },
     setNodeID(param) {
       this.$store.dispatch("setNodeIDAction", param);
@@ -105,7 +105,7 @@ export default {
       return this.$store.getters.getNodeID;
     },
     refreshNodes() {
-      return this.$store.getters.getNeoNodes;
+      return this.$store.getters.getNeoSelectedNetNodes;
     }
   },
   watch: {
