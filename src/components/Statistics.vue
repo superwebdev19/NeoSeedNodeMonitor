@@ -11,7 +11,8 @@ export default {
   data() {
     return {
       chartOptionsBar: {
-        color: "#17a2b8",
+        // color: "#17a2b8",
+        color: "#007bff",
         xAxis: {
           axisLabel: {
             formatter: function(value) {
@@ -45,7 +46,7 @@ export default {
               normal: {
                 show: true,
                 position: "top",
-                color: "#ff0000",
+                color: "#000000",
                 fontSize: "14",
                 distance: 5
               }

@@ -1,12 +1,16 @@
 <template>
   <div class="container">
-    <div class="row my-4">
-      <div class="col-12">
-        <b-button variant="info" class="float-right ml-2" @click="onChooseNet('TestNet')">Testnet</b-button>
-        <b-button variant="info" class="float-right mx-3" @click="onChooseNet('MainNet')">Mainnet</b-button>
-      </div>
-    </div>
     <div id="chartdiv"></div>
+    <div class="mt-3">
+      <b-table responsive hover :fields="fields" :items="rankTableData">
+        <template v-slot:cell(country)="row">
+          <div class="d-flex pl-0">
+            <img :src="row.item.flagUrl" class="flag mr-3" />
+            <div>{{row.item.country}}</div>
+          </div>
+        </template>
+      </b-table>
+    </div>
   </div>
 </template>
 
@@ -24,25 +28,30 @@ export default {
   data() {
     return {
       neoMapLocations: [],
-      neoAllNodeLocations: [],
-      neoMainNetNodeLocations: [],
-      neoTestNetNodeLocations: [],
-      neoNodes: [],
-      flagTestNet: true,
-      flagMainNet: true
+      fields: [
+        {
+          key: "no",
+          label: "No",
+          sortable: true
+        },
+        {
+          key: "country",
+          label: "Country",
+          sortable: true
+        },
+        {
+          key: "number_of_nodes",
+          label: "Number of Nodes",
+          sortable: true
+        }
+      ],
+      rankTableData: []
     };
   },
   mounted() {
     this.neoMapLocations = this.$store.getters.getNeoSelectedNetNodes;
   },
   methods: {
-    onChooseNet(flagNet) {
-      if (flagNet === "MainNet") {
-        this.neoMapLocations = this.neoMainNetNodeLocations;
-      } else if (flagNet == "TestNet") {
-        this.neoMapLocations = this.neoTestNetNodeLocations;
-      }
-    },
     showMap(data) {
       // Clear
       am4core.disposeAllCharts();
@@ -124,9 +133,7 @@ export default {
       let data = this.$store.getters.getNeoSelectedNetNodes;
       if (data.length === 0) return;
 
-      let neoAllNodeLocations = [];
-      let neoMainNetNodeLocations = [];
-      let neoTestNetNodeLocations = [];
+      this.neoMapLocations = [];
       let element = {};
 
       data.forEach(item => {
@@ -138,18 +145,8 @@ export default {
           scale: 0.5
         };
 
-        neoAllNodeLocations.push(element);
-        if (item.net === "MainNet") {
-          neoMainNetNodeLocations.push(element);
-        } else if (item.net === "TestNet") {
-          neoTestNetNodeLocations.push(element);
-        }
+        this.neoMapLocations.push(element);
       });
-
-      this.neoNodes = data;
-      this.neoAllNodeLocations = neoAllNodeLocations;
-      this.neoMainNetNodeLocations = neoMainNetNodeLocations;
-      this.neoTestNetNodeLocations = neoTestNetNodeLocations;
 
       //initial map data
       if (
@@ -157,6 +154,60 @@ export default {
         neoMainNetNodeLocations.length !== 0
       )
         this.neoMapLocations = neoMainNetNodeLocations;
+    },
+    getNodesByGroup(array, groupKey) {
+      let result = {},
+        data = [];
+
+      array.forEach(item => {
+        if (!result[item[groupKey]]) {
+          result[item[groupKey]] = [];
+          data.push({
+            no: 0,
+            flagUrl: item["flagUrl"],
+            country: item[groupKey],
+            number_of_nodes: 0
+          });
+        }
+
+        // set number of nodes
+        data.forEach(row => {
+          if (row["country"] === item[groupKey]) row["number_of_nodes"]++;
+        });
+      });
+
+      return data;
+    },
+    getNodesBySort(array, sortKey) {
+      let result = array,
+        tempFlagUrl,
+        tempCountry = "",
+        tempNumber = 0;
+
+      // sort
+      for (let i = 0; i <= result.length - 2; i++) {
+        for (let j = i + 1; j <= result.length - 1; j++) {
+          if (result[i]["number_of_nodes"] < result[j]["number_of_nodes"]) {
+            tempFlagUrl = result[i]["flagUrl"];
+            tempCountry = result[i]["country"];
+            tempNumber = result[i]["number_of_nodes"];
+            result[i]["flagUrl"] = result[j]["flagUrl"];
+            result[i]["country"] = result[j]["country"];
+            result[i]["number_of_nodes"] = result[j]["number_of_nodes"];
+            result[j]["flagUrl"] = tempFlagUrl;
+            result[j]["country"] = tempCountry;
+            result[j]["number_of_nodes"] = tempNumber;
+          }
+        }
+      }
+
+      // set "no" field
+      for (let i = 0; i <= result.length - 1; i++) {
+        //set no
+        result[i]["no"] = i + 1;
+      }
+
+      return result;
     }
   },
   computed: {
@@ -173,6 +224,11 @@ export default {
     },
     refreshData: function() {
       this.showMap(this.neoMapLocations);
+    },
+    neoMapLocations: function() {
+      let data = this.refreshNodes;
+      data = this.getNodesByGroup(data, "location");
+      this.rankTableData = this.getNodesBySort(data, "location");
     }
   }
 };
@@ -184,7 +240,22 @@ export default {
   width: 100%;
   height: 75vh;
 }
+
 .btn-net {
   float: right;
+}
+
+.flag {
+  width: 30px;
+  height: 20px;
+}
+
+@media (max-width: 400px) {
+  #chartdiv {
+    width: 100%;
+    height: 60vh;
+    margin-top: -10vh;
+    z-index: -1;
+  }
 }
 </style>
