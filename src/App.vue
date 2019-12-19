@@ -18,7 +18,7 @@
 
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto" v-if="showMenu">
-            <b-nav-item-dropdown :text="netFlag" right class="pr-5">
+            <b-nav-item-dropdown :text="netFlag" right>
               <b-dropdown-item @click="onSetFlagNet('MainNet')">MainNet</b-dropdown-item>
               <b-dropdown-item @click="onSetFlagNet('TestNet')">TestNet</b-dropdown-item>
             </b-nav-item-dropdown>

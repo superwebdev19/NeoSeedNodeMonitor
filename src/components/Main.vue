@@ -4,9 +4,9 @@
     <div class="mt-3">
       <b-table responsive hover :fields="fields" :items="rankTableData">
         <template v-slot:cell(country)="row">
-          <div class="d-flex pl-0">
+          <div class="d-flex">
             <img :src="row.item.flagUrl" class="flag mr-3" />
-            <div>{{row.item.country}}</div>
+            <div>{{ row.item.country }}</div>
           </div>
         </template>
       </b-table>
