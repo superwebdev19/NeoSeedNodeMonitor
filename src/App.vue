@@ -19,8 +19,12 @@
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto" v-if="showMenu">
             <b-nav-item-dropdown :text="netFlag" right>
-              <b-dropdown-item @click="onSetFlagNet('MainNet')">MainNet</b-dropdown-item>
-              <b-dropdown-item @click="onSetFlagNet('TestNet')">TestNet</b-dropdown-item>
+              <b-dropdown-item @click="onSetFlagNet('MainNet')"
+                >MainNet</b-dropdown-item
+              >
+              <b-dropdown-item @click="onSetFlagNet('TestNet')"
+                >TestNet</b-dropdown-item
+              >
             </b-nav-item-dropdown>
           </b-navbar-nav>
         </b-collapse>
@@ -72,28 +76,22 @@ export default {
     connection.on("Receive", data => {
       this.$store.dispatch("setNeoNodesAction", data);
 
-      //set initial Net as a MainNet - MainNet/TestNet
-      if (this.$store.getters.getNeoSelectedNetNodes.length === 0) {
-        this.onSetFlagNet("MainNet");
-      }
+      // Initial netFlag = MainNet
+      this.onSetFlagNet(this.netFlag);
     });
   },
   methods: {
     onSetFlagNet(flag) {
-      if (
-        this.netFlag !== flag ||
-        this.$store.getters.getNeoSelectedNetNodes.length === 0
-      ) {
-        this.netFlag = flag;
+      this.netFlag = flag;
 
-        let data = this.$store.getters.getNeoNodes;
-        this.$store.dispatch(
-          "setNeoSelectedNetNodesAction",
-          data.filter(item => {
-            if (item.net === this.netFlag) return item;
-          })
-        );
-      }
+      let data = this.$store.getters.getNeoNodes;
+      this.$store.dispatch(
+        "setNeoSelectedNetNodesAction",
+        data.filter(item => {
+          if (item.net === this.netFlag) return item;
+        })
+      );
+      // }
     }
   }
 };

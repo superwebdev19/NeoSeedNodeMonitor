@@ -148,7 +148,7 @@ export default {
         this.neoMapLocations.push(element);
       });
 
-      //initial map data
+      // Initial map data
       if (
         this.neoMapLocations.length === 0 &&
         neoMainNetNodeLocations.length !== 0
@@ -170,7 +170,7 @@ export default {
           });
         }
 
-        // set number of nodes
+        // Set number of nodes
         data.forEach(row => {
           if (row["country"] === item[groupKey]) row["number_of_nodes"]++;
         });
@@ -184,7 +184,7 @@ export default {
         tempCountry = "",
         tempNumber = 0;
 
-      // sort
+      // Sort
       for (let i = 0; i <= result.length - 2; i++) {
         for (let j = i + 1; j <= result.length - 1; j++) {
           if (result[i]["number_of_nodes"] < result[j]["number_of_nodes"]) {
@@ -201,9 +201,8 @@ export default {
         }
       }
 
-      // set "no" field
+      // Set "no" field
       for (let i = 0; i <= result.length - 1; i++) {
-        //set no
         result[i]["no"] = i + 1;
       }
 
@@ -213,22 +212,41 @@ export default {
   computed: {
     refreshNodes() {
       return this.$store.getters.getNeoSelectedNetNodes;
-    },
-    refreshData() {
-      return this.neoMapLocations;
     }
   },
   watch: {
-    refreshNodes: function() {
+    refreshNodes: function(val, oldval) {
       this.suckData();
     },
-    refreshData: function() {
-      this.showMap(this.neoMapLocations);
-    },
-    neoMapLocations: function() {
+    neoMapLocations: function(val, oldval) {
+      // Rank table
       let data = this.refreshNodes;
       data = this.getNodesByGroup(data, "location");
       this.rankTableData = this.getNodesBySort(data, "location");
+
+      // Map
+      if (!val) {
+        this.showMap(this.neoMapLocations);
+      } else {
+        // Show the map only if the data is changed.
+        let isDataEqual = false,
+          currentData = val,
+          oldData = oldval;
+
+        currentData = this.getNodesByGroup(currentData, "title");
+        currentData = this.getNodesBySort(currentData, "title");
+
+        oldData = this.getNodesByGroup(oldData, "title");
+        oldData = this.getNodesBySort(oldData, "title");
+
+        isDataEqual =
+          currentData.length == oldData.length &&
+          currentData.every(function(element, index) {
+            return JSON.stringify(element) === JSON.stringify(oldData[index]);
+          });
+
+        if (!isDataEqual) this.showMap(this.neoMapLocations);
+      }
     }
   }
 };
