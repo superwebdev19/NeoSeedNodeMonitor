@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" v-if="showPage">
     <div>
       <b-navbar toggleable="lg" type="dark" variant="primary">
         <router-link to="/">
@@ -43,7 +43,8 @@ export default {
   data() {
     return {
       netFlag: "MainNet",
-      showMenu: true
+      showMenu: true,
+      showPage: false
     };
   },
   watch: {
@@ -60,7 +61,7 @@ export default {
   created: function() {
     // Connect to the hub
     connection = new signalR.HubConnectionBuilder()
-      .withUrl("http://47.97.73.20/hubs/node")
+      .withUrl(process.env.VUE_APP_SOCKETAPI)
       .build();
 
     connection.start().catch(function() {
@@ -71,6 +72,9 @@ export default {
 
     connection.on("Receive", data => {
       this.$store.dispatch("setNeoNodesAction", data);
+
+      // If no data, don't display page
+      this.showPage = data.length === 0 ? false : true;
 
       // Initial netFlag = MainNet
       this.onSetFlagNet(this.netFlag);

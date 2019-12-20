@@ -2,6 +2,6 @@ import axios from "axios";
 
 export default {
   getNodeInfo(nodeID) {
-    return axios.get("http://47.103.106.221/api/nodes/" + nodeID);
+    return axios.get(process.env.VUE_APP_RESTAPI + nodeID);
   }
 };

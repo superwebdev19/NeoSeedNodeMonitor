@@ -1,5 +1,5 @@
 <template>
-  <div class="chart-wrapper container col-12">
+  <div class="chart-wrapper container col-12 mt-5">
     <chart :options="chartOptionsBar" :autoresize="true"></chart>
   </div>
 </template>
