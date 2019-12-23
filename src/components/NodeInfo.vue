@@ -93,6 +93,7 @@ export default {
       this.$store.dispatch("setStatisticsY", yAxis);
     },
     filterTable(row, filter) {
+      // return true;
       return row.NodeName.toLowerCase().includes(filter.toLowerCase()) ||
         row.ExceptionHeight.toString()
           .toLowerCase()

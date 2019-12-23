@@ -95,7 +95,8 @@ export default {
       this.$store.dispatch("setNodeIDAction", param);
     },
     filterTable(row, filter) {
-      return row.NodeName.toLowerCase().includes(filter.toLowerCase())
+      // return true;
+      return row.url.toLowerCase().includes(filter.toLowerCase())
         ? true
         : false;
     }
